@@ -1,0 +1,18 @@
+#服务端口号
+server:
+  port: 8100
+###服务名称eureka
+spring:
+    application:
+        name: app-eureka-server
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  client:
+    service-url:
+#     注册地址
+     defaultZone: http://${eureka.instance.hostname}:9100/eureka/
+#     因为自己是注册中心，是需要将自己注册给自己的注册中心（集群的时候是需要为true）
+    register-with-eureka: true
+#    因为自己是注册中心，不需要检索
+    fetch-registry: true
