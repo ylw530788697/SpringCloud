@@ -18,7 +18,7 @@ public class MemberService implements IMemberService {
     @RequestMapping
     public UserEntity getMember(String name) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setName("evan");
+        userEntity.setName(name);
         userEntity.setAge(22);
         return userEntity;
     }

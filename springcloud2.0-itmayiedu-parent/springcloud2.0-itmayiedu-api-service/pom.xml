@@ -12,8 +12,16 @@
     <modules>
         <module>springcloud2.0-itmayiedu-api-member-service</module>
         <module>springcloud2.0-itmayiedu-api-order-service</module>
+        <module>springcloud2.0-itmayiedu-api-order-service</module>
     </modules>
     <artifactId>springcloud2.0-itmayiedu-api-service</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.itmayiedu</groupId>
+            <artifactId>springcloud2.0-itmayiedu-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
