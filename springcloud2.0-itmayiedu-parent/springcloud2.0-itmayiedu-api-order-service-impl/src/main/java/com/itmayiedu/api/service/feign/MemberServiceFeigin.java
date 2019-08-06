@@ -1,4 +1,4 @@
-package itmayiedu.api.service.api.feign;
+package com.itmayiedu.api.service.feign;
 
 import com.itmayiedu.api.service.IMemberService;
 import org.springframework.cloud.openfeign.FeignClient;

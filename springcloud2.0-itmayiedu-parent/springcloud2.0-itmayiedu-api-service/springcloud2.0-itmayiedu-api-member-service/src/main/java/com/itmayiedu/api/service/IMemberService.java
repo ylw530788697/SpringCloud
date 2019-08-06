@@ -12,4 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface IMemberService {
     @RequestMapping("/getMember")
     public UserEntity getMember(@RequestParam("name") String name);
+
+    @RequestMapping("/")
+    public String member();
 }
