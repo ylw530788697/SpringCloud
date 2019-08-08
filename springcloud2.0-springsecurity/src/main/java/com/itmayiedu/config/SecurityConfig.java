@@ -1,5 +1,6 @@
 package com.itmayiedu.config;
 
+import com.itmayiedu.entity.Permission;
 import com.itmayiedu.handler.MyAuthenticationFailureHandler;
 import com.itmayiedu.handler.MyAuthenticationSuccessHandler;
 import com.itmayiedu.mapper.PermissionMapper;
@@ -12,10 +13,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import sun.plugin2.message.GetAuthenticationMessage;
+
+import java.util.List;
 
 /**
  * @author evanYang
@@ -64,16 +68,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 如何权限控制 给每一个请求路径 分配一个权限名称 让后账号只要关联该名称，就可以有访问权限
-        http.authorizeRequests()
-                // 配置查询订单权限
-                .antMatchers("/showOrder").hasAnyAuthority("showOrder")
-                .antMatchers("/addOrder").hasAnyAuthority("addOrder")
-                .antMatchers("/login").permitAll()
-                .antMatchers("/updateOrder").hasAnyAuthority("updateOrder")
-                .antMatchers("/deleteOrder").hasAnyAuthority("deleteOrder")
-                .antMatchers("/**").fullyAuthenticated().and().formLogin().loginPage("/login")
-                .successHandler(successHandler).failureHandler(failureHandler)
-                .and().csrf().disable();
+        //http.authorizeRequests()
+        //        // 配置查询订单权限
+        //        .antMatchers("/showOrder").hasAnyAuthority("showOrder")
+        //        .antMatchers("/addOrder").hasAnyAuthority("addOrder")
+        //        .antMatchers("/login").permitAll()
+        //        .antMatchers("/updateOrder").hasAnyAuthority("updateOrder")
+        //        .antMatchers("/deleteOrder").hasAnyAuthority("deleteOrder")
+        //        .antMatchers("/**").fullyAuthenticated().and().formLogin().loginPage("/login")
+        //        .successHandler(successHandler).failureHandler(failureHandler)
+        //        .and().csrf().disable();
+
+        List<Permission> listPermission = permissionMapper.findAllPermission();
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http
+                .authorizeRequests();
+        for (Permission permission : listPermission) {
+            authorizeRequests.antMatchers(permission.getUrl()).hasAnyAuthority(permission.getPermTag());
+        }
+        authorizeRequests.antMatchers("/login").permitAll().antMatchers("/**").fullyAuthenticated().and().formLogin()
+                .loginPage("/login").and().csrf().disable();
+
     }
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
