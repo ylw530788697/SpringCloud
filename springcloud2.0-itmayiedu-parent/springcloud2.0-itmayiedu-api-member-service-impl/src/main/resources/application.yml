@@ -5,6 +5,12 @@ server:
 spring:
     application:
         name: app-itmayiedu-member
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
 ###服务注册到eureka地址
 eureka:
   client:

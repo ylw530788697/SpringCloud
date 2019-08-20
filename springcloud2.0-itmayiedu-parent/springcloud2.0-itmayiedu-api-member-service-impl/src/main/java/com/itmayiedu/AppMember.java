@@ -13,6 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableSwagger2Doc
+@MapperScan("com.itmayiedu.dao")
 public class AppMember {
 
     public static void main(String[] args) {

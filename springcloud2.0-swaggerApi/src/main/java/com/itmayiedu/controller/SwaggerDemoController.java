@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * @author v_liwenyang
+ * @author liwenyang
  */
 public class SwaggerDemoController {
     private static final Logger logger = LoggerFactory.getLogger(SwaggerDemoController.class);
